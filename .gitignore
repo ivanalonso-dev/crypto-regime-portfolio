@@ -1,0 +1,5 @@
+resultados/*
+!resultados/equity.png
+__pycache__/
+*.pyc
+.venv/
