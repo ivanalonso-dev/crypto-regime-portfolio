@@ -77,7 +77,7 @@ def core_returns(btc006: pd.DataFrame, states: pd.Series, dates: pd.DatetimeInde
 
 def satellite_returns(coins, states, risk: float, yield_pct: float) -> tuple[pd.Series, pd.Series, dict]:
     out: dict = {}
-    eq, tr, expo, dates, st = bs.backtest(coins, states, replace(bs.VERSIONS["v2"], risk_pct=risk),
+    eq, tr, expo, dates, st = bs.backtest(coins, states, replace(bs.VERSIONS["v2"], risk_pct=risk, fee_pct=FEE * 100),
                                           state_out=out)
     r = eq.pct_change().fillna(0)
     r = r + (1 - expo.shift(1).fillna(0)).clip(0, 1) * daily_yield(yield_pct)
@@ -128,8 +128,13 @@ def main():
     ap = argparse.ArgumentParser(description="Cartera combinada 006 + 007 + 008")
     ap.add_argument("--yield-pct", type=float, default=4.0)
     ap.add_argument("--risk", type=float, default=1.0)
+    ap.add_argument("--fee-pct", type=float, default=0.10,
+                    help="comisión por lado en %% (eToro: 1.0)")
     ap.add_argument("--out", default="resultados")
     a = ap.parse_args()
+    global FEE
+    FEE = a.fee_pct / 100
+    print(f"Comisión por lado: {a.fee_pct:g}% · rentabilidad de la liquidez: {a.yield_pct:g}% anual")
 
     states = bs.load_states(os.path.join(P006, "resultados", "estados_oficiales.csv"))
     btc006 = br.load_btc006(os.path.join(P006, "data", "btc_daily.csv"))
