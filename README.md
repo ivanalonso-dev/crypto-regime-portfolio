@@ -84,4 +84,4 @@ python dashboard.py                                          # -> dashboard.html
 Settings live in `mi_cartera.json` (core weight, risk per trade, stop mode `intradia` / `cierre`, broker commission, available coins). The system uses **no take profit**: exits are the trailing stop-loss. Personal files (`mi_cartera.json`, `mi_registro/`, `plan_hoy.txt`, `dashboard.html`) are git-ignored.
 
 ---
-*Author: Ivan Alonso · [github.com/ivanalonso-dev](https://github.com/ivanalonso-dev)*
+*Author: Ivan Alonso · [GitHub](https://github.com/ivanalonso-dev) · [LinkedIn](https://www.linkedin.com/in/ivanalonsodev) · [X](https://x.com/ivanalonsodev)*
